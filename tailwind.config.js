@@ -3,9 +3,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   theme: {
     extend: {
-      maxWidth: {
-        container: "1440px",
-      },
+      // maxWidth: {
+      //   container: "1440px",
+      // },
       fontFamily: {
         work: ["Work Sans", " sans-serif"],
       },
