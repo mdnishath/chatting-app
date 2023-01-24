@@ -48,15 +48,18 @@ const Message = () => {
             </div>
 
             <div className=" mt-5">
-              <div className="flex px-5">
+              {/* <div className="flex px-5">
                 <div className="relative inline-block rounded-[10px] bg-chat p-4 before:absolute before:bottom-[-4px] before:left-[-6px] before:h-4 before:w-4 before:translate-x-0 before:translate-y-[-2px] before:rounded-br-[10px] before:border before:border-l-[0px] before:border-chat before:bg-chat before:content-[''] after:absolute after:bottom-[-2px] after:left-[-16px] after:h-4 after:w-4 after:rounded-br-[10px] after:bg-white after:content-['']">
                   <p>Hey There !</p>
                 </div>
-              </div>
-              <div className="flex justify-end px-5">
-                <div className="relative inline-block rounded-[10px] bg-primary p-4 before:absolute before:bottom-[-4px] before:right-[-6px] before:h-4 before:w-4 before:translate-x-0 before:translate-y-[-2px] before:rounded-bl-[10px] before:border before:border-l-[0px] before:border-primary before:bg-primary before:content-[''] after:absolute after:bottom-[-2px] after:right-[-16px] after:h-4 after:w-4 after:rounded-bl-[10px] after:bg-white after:content-['']">
-                  <p className="text-white">Hey There !</p>
+              </div> */}
+              <div class="chat chat-start">
+                <div class="chat-bubble bg-primary">
+                  It's over Anakin, <br />I have the high ground.
                 </div>
+              </div>
+              <div class="chat chat-end">
+                <div class="chat-bubble">You underestimate my power!</div>
               </div>
             </div>
             <div className=" absolute bottom-[20px] left-0 w-full px-10 ">

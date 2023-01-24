@@ -2,7 +2,7 @@ import React from "react";
 
 const GroupList = () => {
   return (
-    <div className="h-[360px] w-full overflow-x-hidden rounded-xl bg-white p-5 shadow-all">
+    <div className="h-[360px] w-full overflow-x-hidden rounded-xl bg-white p-5 shadow-all ">
       <div className="flex justify-between">
         <h3 className=" text-2xl font-semibold text-primary">Group List</h3>
         <div>
