@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { getDatabase, ref, onValue } from "firebase/database";
 import Loading from "./Loading";
-import Image from "./Image";
 import Profile from "./profiles/UserlistProfile";
 
 const Userlist = () => {
   const db = getDatabase();
-  const user = useSelector((state) => state.user.user);
+  // const user = useSelector((state) => state.user.user);
   const [userList, setUserlist] = useState([]);
 
   // Fetch userlist from firebase
@@ -39,7 +38,7 @@ const Userlist = () => {
       </div>
       <div className="mt-5">
         <div className="divide-y">
-          {userList.length > 0 ? (
+          {userList && userList.length > 0 ? (
             userList.map((item) => (
               <Profile key={item.key} item={item} type={"userlist"} />
             ))

@@ -8,7 +8,7 @@ import {
   remove,
 } from "firebase/database";
 import { useSelector } from "react-redux";
-import Loading from "./Loading";
+// import Loading from "./Loading";
 
 const Friendrequest = () => {
   const db = getDatabase();
@@ -28,7 +28,7 @@ const Friendrequest = () => {
           }
         });
       }
-      console.log(arr);
+      // console.log(arr);
       setFriendRequestList(arr);
     });
   }, []);

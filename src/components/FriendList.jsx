@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { getDatabase, ref, set, push, onValue, get } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  set,
+  push,
+  onValue,
+  remove,
+} from "firebase/database";
 import { useSelector } from "react-redux";
+import Image from "../components/Image";
 const FriendList = () => {
   const db = getDatabase();
   const data = useSelector((state) => state.user.user);
@@ -17,14 +25,27 @@ const FriendList = () => {
           item.val().receiveID === data.uid ||
           item.val().senderID === data.uid
         ) {
-          arr.push(item.val());
+          arr.push({ ...item.val(), key: item.key });
         }
       });
 
-      console.log(arr);
+      // console.log(arr);
       setFriends(arr);
     });
   }, []);
+
+  //Handle unfriend
+  const handleUnfriend = async (item) => {
+    console.log(item);
+    await remove(ref(db, "friends/" + item.key));
+  };
+  const handleBlock = async (item) => {
+    await set(push(ref(db, "blockList")), {
+      ...item,
+      blockBy: data.uid,
+    });
+    await remove(ref(db, "friends/" + item.key));
+  };
   return (
     <div className="h-[360px] w-full overflow-x-hidden rounded-xl bg-white p-5 shadow-all">
       <div className="flex justify-between">
@@ -38,16 +59,17 @@ const FriendList = () => {
       <div className="mt-5">
         <div className="divide-y">
           {friends.map((item) => (
-            <div className="flex items-center justify-between py-4">
+            <div
+              key={item.key}
+              className="flex items-center justify-between py-4"
+            >
               <div className="h-[40px] w-[40px] rounded-full shadow-lg">
-                <img
-                  className="w-full rounded-full"
+                <Image
                   src={
                     data.uid === item.receiveID
                       ? item.senderImage
                       : item.receiveImage
                   }
-                  alt="profile"
                 />
               </div>
 
@@ -59,10 +81,16 @@ const FriendList = () => {
                 </h4>
               </div>
               <div className="flex grow justify-end gap-2">
-                <button className="inline-block rounded-full bg-primary px-4 py-1 text-[12px] font-semibold text-white shadow-btn">
+                <button
+                  onClick={() => handleUnfriend(item)}
+                  className="inline-block rounded-full bg-primary px-4 py-1 text-[12px] font-semibold text-white shadow-btn"
+                >
                   Unfriend
                 </button>
-                <button className="inline-block rounded-full bg-primary px-4 py-1 text-[12px] font-semibold text-white shadow-btn">
+                <button
+                  onClick={() => handleBlock(item)}
+                  className="inline-block rounded-full bg-primary px-4 py-1 text-[12px] font-semibold text-white shadow-btn"
+                >
                   Block
                 </button>
               </div>
