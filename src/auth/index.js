@@ -7,7 +7,7 @@ export const loginWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
   try {
     const response = await signInWithPopup(auth, provider);
-    await set(push(ref(db, "users")), {
+    await set(ref(db, "users/" + response.user.uid), {
       name: response.user.displayName,
       email: response.user.email,
       image: response.user.photoURL,

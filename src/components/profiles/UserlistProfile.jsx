@@ -6,6 +6,7 @@ const Profile = ({ item, type }) => {
   const db = getDatabase();
   const data = useSelector((state) => state.user.user);
   const [request, setRequest] = useState([]);
+  const [friendList, setFriendList] = useState([]);
   const handleAddFriend = async (item) => {
     console.log(item);
     try {
@@ -33,12 +34,25 @@ const Profile = ({ item, type }) => {
       if (snapshot.exists()) {
         snapshot.forEach((item) => {
           // console.log(data.uid, item.val().receiveID);
-
           arr.push(item.val().receiveID + item.val().senderID);
         });
       }
-      console.log(arr);
+      // console.log(arr);
       setRequest(arr);
+    });
+  }, []);
+
+  // Friend List fetch
+  useEffect(() => {
+    const userRef = ref(db, "friends/");
+    onValue(userRef, (snapshot) => {
+      const arr = [];
+      snapshot.forEach((item) => {
+        arr.push(item.val().receiveID + item.val().senderID);
+      });
+
+      console.log(arr);
+      setFriendList(arr);
     });
   }, []);
   // console.log(request.includes("cpxrp3smykcy92VxVndnhctB3Mn2"));
@@ -58,7 +72,12 @@ const Profile = ({ item, type }) => {
             {request.includes(data.uid + item.id) ||
             request.includes(item.id + data.uid) ? (
               <button className="inline-block rounded-full bg-primary px-4 py-1 text-[12px] font-semibold text-white shadow-btn">
-                Cancel
+                Pending
+              </button>
+            ) : friendList.includes(data.uid + item.id) ||
+              friendList.includes(item.id + data.uid) ? (
+              <button className="inline-block rounded-full bg-primary px-4 py-1 text-[12px] font-semibold text-white shadow-btn">
+                Friend
               </button>
             ) : (
               <button
@@ -68,14 +87,6 @@ const Profile = ({ item, type }) => {
                 Add Friend
               </button>
             )}
-            <>
-              {/* {request.includes(item.id + data.uid) ||
-              includes(data.uid + item.id) ? (
-                "red"
-              ) : (
-                
-              )} */}
-            </>
           </div>
         </div>
       )}
